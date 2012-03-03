@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  
+
+  <head>
+    <title>
+      Attachment – CSC 366 Winter 2012 Wiki
+    </title>
+        <link rel="search" href="/366-Winter2012/search" />
+        <link rel="help" href="/366-Winter2012/wiki/TracGuide" />
+        <link rel="alternate" href="/366-Winter2012/raw-attachment/wiki/UdderAnalysts/lab4/mockup.pdf" type="application/pdf; charset=iso-8859-15" title="Original Format" />
+        <link rel="up" href="/366-Winter2012/wiki/UdderAnalysts/lab4" title="UdderAnalysts/lab4" />
+        <link rel="start" href="/366-Winter2012/wiki" />
+        <link rel="stylesheet" href="/366-Winter2012/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/366-Winter2012/chrome/common/css/code.css" type="text/css" /><link rel="stylesheet" href="/366-Winter2012/chrome/tracwysiwyg/wysiwyg.css" type="text/css" />
+        <link rel="shortcut icon" href="/366-Winter2012/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/366-Winter2012/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/366-Winter2012/search/opensearch" title="Search CSC 366 Winter 2012 Wiki" />
+    <script type="text/javascript" src="/366-Winter2012/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/366-Winter2012/chrome/common/js/trac.js"></script><script type="text/javascript" src="/366-Winter2012/chrome/common/js/search.js"></script><script type="text/javascript" src="/366-Winter2012/chrome/tracwysiwyg/wysiwyg.js"></script><script type="text/javascript" src="/366-Winter2012/chrome/tracwysiwyg/wysiwyg-load.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/366-Winter2012/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="/366-Winter2012/wiki/TracIni#header_logo-section"><img src="/366-Winter2012/chrome/site/logomod/dog1.jpg" alt="(configure using the CSL-&gt;Header Logo admin settings)" width="200" /></a>
+      </div>
+      <form id="search" action="/366-Winter2012/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/366-Winter2012/login">Login</a></li><li><a href="/366-Winter2012/prefs">Preferences</a></li><li><a href="/366-Winter2012/wiki/TracGuide">Help/Guide</a></li><li class="last"><a href="/366-Winter2012/about">About Trac</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="/366-Winter2012/wiki">Wiki</a></li><li><a href="/366-Winter2012/timeline">Timeline</a></li><li><a href="/366-Winter2012/roadmap">Roadmap</a></li><li><a href="/366-Winter2012/browser">Browse Source</a></li><li><a href="/366-Winter2012/report">View Tickets</a></li><li class="last"><a href="/366-Winter2012/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="last first"><a href="/366-Winter2012/wiki/UdderAnalysts/lab4">Back to UdderAnalysts/lab4</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="attachment">
+        <h1><a href="/366-Winter2012/wiki/UdderAnalysts/lab4">UdderAnalysts/lab4</a>: mockup.pdf</h1>
+        <table id="info" summary="Description">
+          <tbody>
+            <tr>
+              <th scope="col">
+                File mockup.pdf, <span title="98686 bytes">96.4 KB</span>
+                (added by mtognett,  <a class="timeline" href="/366-Winter2012/timeline?from=2012-02-08T18%3A02%3A14-0800&amp;precision=second" title="2012-02-08T18:02:14-0800 in Timeline">3 weeks</a> ago)
+              </th>
+            </tr>
+            <tr>
+              <td class="message searchable">
+                <p>
+ui mockup
+</p>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="preview" class="searchable">
+      <p>
+        <strong>HTML preview not available</strong>,
+            since no preview renderer could handle it.
+        Try <a href="/366-Winter2012/raw-attachment/wiki/UdderAnalysts/lab4/mockup.pdf">downloading</a> the file instead.
+      </p>
+        </div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/366-Winter2012/raw-attachment/wiki/UdderAnalysts/lab4/mockup.pdf">Original Format</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/366-Winter2012/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">
+        Powered by <a href="/366-Winter2012/about"><strong>Trac 0.11.5</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

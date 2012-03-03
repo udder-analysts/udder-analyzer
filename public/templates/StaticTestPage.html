@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Udder Analsyts - file upload</title>
+	<link href="static/bootstrap.css" type='text/css' rel="stylesheet"/>
+</head>
+
+<body>
+
+<div class='container'>
+	<div class='row'>
+		<div class='span4 offset4'>
+			<h1>Udder Analysts</h1>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='span4 offset4'>
+			<h3>File Upload</h3>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='span4 offset4'>
+			<form name="data" action="upload" method="post" enctype="multipart/form-data" class='form-vertical well'>
+				<label for="upload-files">Files
+				<input type="file" name="upload-files" multiple="true" />
+				</label>
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>

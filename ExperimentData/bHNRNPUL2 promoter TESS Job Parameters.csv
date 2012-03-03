@@ -1,0 +1,52 @@
+TESS Job,F0934019406
+Experiment,Laura Strand-May 2011
+Comparison ,MAC-T Undifferentiated/Differentiated
+Species,Bovine
+Gene Name,Heterogeneous Nuclear Ribonucleoprotein U-like protein 2
+Gene Abbreviation,HNRNPUL2
+Chromosome,29
+Begin Site,-42740730
+End Site,-42738731
+Regulation,down
+Length of time to store results of the job,"fortnight
+"
+Your email address,"aconly@calpoly.edu
+"
+Search TRANSFAC Strings,1
+Search My Site Strings,"
+"
+Selected?,0
+Search TRANSFAC Matrices,1
+Search IMD Matrices,1
+Search CBIL-GibbsMat Matrices,1
+Search JASPAR Matrices,1
+Search My Weight Matrices,"
+"
+Selected?,0
+Combine with,"AND
+"
+Factor Attribute 1,"Organism Species
+"
+matches,"human
+"
+Use only core positions for TRANSFAC strings,1
+Maximum Allowable String Mismatch % (tmm),1
+Minimum log-likelihood ratio score (ts-a),20
+Minimum string length (tw),6
+Minimum lg likelihood ratio (ta),6
+Group Selection,"lglh
+"
+Maximum lg-likelihood deficit (td),8
+Minimum core similarity (tc),0.75
+Minimum matrix similarity (tm),0.85
+Secondary Lg-Likelihood Deficit,3
+Count significance threshold,0.01
+Selected?,0
+Pseudocounts,0.1
+Group Selection,"uf
+"
+Use A-T Content (%),50
+"Explicit A,C,G,T Distribution","0.25,0.25,0.25,0.25
+"
+Handle Ambiguous Bases Using,"Expected Score
+"
