@@ -11,7 +11,8 @@ require([
     'jquery',
     'underscore',
     'backbone',
-    'src/model/species.js'
-], function($, _, Backbone, Species) {
-    console.log("hello world");
+    'src/router'
+], function($, _, Backbone, App) {
+    var app = new App();
+    Backbone.history.start();
 });

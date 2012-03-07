@@ -1,3 +1,5 @@
+DELETE FROM associated_factor;
+DELETE FROM associated_tnumber;
 DELETE FROM t_number;
 DELETE FROM transcription_factors;
 DELETE FROM regulatory_elements;

@@ -4,37 +4,20 @@
         <meta charset="utf-8"/>
         <title>Udder Analyzer</title>
 
-        <link href="public/styles/main.css" type="text/css" rel="stylesheet"/>
+        <link href="public/styles/main.less" type="text/css" rel="stylesheet/less"/>
         <link href="public/styles/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <script src="public/js/lib/less-1.2.2.min.js"></script>
     </head>
     <body>
-
-        <div class='container'>
-            <div class='row'>
-                <br>
-                <br>
-            </div>
-            <div class='row'>
-                <div class='offset3 span3'>
-                    <h1>Udder Analyzer</h1>
-                    <a class='active' href="#">File Upload</a>
-                    <a href="browse">Browse</a>
-                </div>
-            </div>
-            <div class='row'>
-                <br>
-            </div>
-            <div class='row'>
-                <div class='offset3 span5'>
-                    <form name="data" action="upload" method="post" enctype="multipart/form-data" class='form-vertical well'>
-                        <label for="upload-files">Files
-                        <input type="file" name="upload-files" multiple="true" />
-                        </label>
-                        <input type="submit" value="Submit" />
-                    </form>
-                </div>
-            </div>
+    
+        <div id='navigation'>
+            <h1>Udder Analyzer</h1>  
+            <a href="#browse">browse</a><br>
+            <a href="#gene-search">gene search</a><br>
+            <a href="#upload">file upload</a>
         </div>
+        
+        <div id='content'></div>
 
         <script type="text/javascript" data-main="public/js/main.js" src="public/js/require.js"></script>
 

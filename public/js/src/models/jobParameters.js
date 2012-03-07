@@ -53,6 +53,48 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+       },
+    // Class Properties
+    {
+        type: 'jobParameters',
+        displayProperties: {
+            'Regulation':'regulation' ,
+			'TimeLength': 'time_len' ,
+			'Email':'email' ,
+			'TRANSFACStrings' : 'TRANSFAC_strings' ,
+			'MySiteStrings' : 'my_site_strings' ,
+			'Selected1': 'selected1' ,
+			'TRANSFACMatrices' : 'TRANSFAC_matrices' ,
+			'IMDMatrices' : 'IMD_matrices' ,
+			'GBILGibbsmatMatrices':'GBIL_gibbsmat_matrices' ,
+			'JASPARMatrices':'JASPAR_matrices' ,
+			'MyWeightMatrices' : 'myweight_matrices' ,
+			'Selected2': 'selected2' ,
+			'CombineWith':'combine_with' ,
+			'FactorAttribute1': 'factor_attribute1' ,
+			'Matches': 'matches' ,
+			'UseOnlyCorePos' : 'use_only_core_pos' ,
+			'MaAllowedMismatch':'max_allowed_mismatch' ,
+			'MinLogLikelihoodRatioScore': 'min_log_likelihood_ratio_score' ,
+			'MinStingength':'min_string_length' ,
+			'MinLgLikelihoodRatio': 'min_lg_likelihood_ratio' ,
+			'GroupSelection1':'group_selection1' ,
+			'MaxLgLikelihoodDeficit': 'max_lg_likelihood_deficit' ,
+			'MinCoreSimilarity': 'min_core_similarity',
+			'MinMatrixSimilarity': 'min_matrix_similarity',
+			'SecondLgLikelihoodDeficit': 'second_lg_likelihood_deficit' ,
+			'CountSigThreshold': 'count_sig_threshold',
+			'Selected3': 'selected3' ,
+			'Pseudocounts': 'pseudocounts' ,
+			'GroupSelection2': 'group_selection2' ,
+			'AtContent': 'at_content' ,
+			'ExplicitAdist': 'explicit_A_dist',
+			'ExplicitCdist': 'explicit_C_dist ,
+			'ExplicitGdist': 'explicit_G_dist' ,
+			'ExplicitTdist': 'explicit_T_dist' ,
+			'HandleAmbigBases': 'handle_ambig_bases' ,
+			'TESSJob':'tessJob' ,
+        }
    });
 
    return JobParameters;

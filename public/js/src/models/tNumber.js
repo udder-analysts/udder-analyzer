@@ -17,6 +17,12 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+   // Class Properties
+    {
+        type: 'tNumber',
+        displayProperties: {
+            'T-Number': 'tnumber'
+        }
    });
 
    return TNumber;

@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS associated_factor;
+DROP TABLE IF EXISTS associated_tnumber;
 DROP TABLE IF EXISTS t_number;
 DROP TABLE IF EXISTS transcription_factors;
 DROP TABLE IF EXISTS regulatory_elements;

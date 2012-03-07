@@ -22,6 +22,19 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+       },
+    // Class Properties
+    {
+        type: 'gene',
+        displayProperties: {
+            'Name': 'name',
+            'Id': 'id',
+            'Abbrev':'abbreviation',
+            'Chromosome': 'chromosome',
+            'Begin Site': 'beginsite',
+            'End Site': 'endsite',
+            
+        }
    });
 
    return Gene;

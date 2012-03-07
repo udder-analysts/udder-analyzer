@@ -105,14 +105,29 @@ CREATE TABLE regulatory_elements (
 
 CREATE TABLE transcription_factors (
    name VARCHAR(20) NOT NULL,
-   reg_element int,
-   PRIMARY KEY (name, reg_element),
-   FOREIGN KEY (reg_element) REFERENCES regulatory_elements(id)
+   PRIMARY KEY (name)
 )TYPE=INNODB;
 
+
 CREATE TABLE t_number (
-   tnumber VARCHAR(20) NOT NULL,
-   reg_element int,
-   PRIMARY KEY (tnumber, reg_element),
-   FOREIGN KEY (reg_element) REFERENCES regulatory_elements(id)
+   tnumber VARCHAR(20) NOT NULL PRIMARY KEY
 )TYPE=INNODB;
+
+
+CREATE TABLE Associated_Factor (
+	regElem_id INT NOT NULL,
+	factor_name VARCHAR(20) NOT NULL,
+   PRIMARY KEY (regElem_id, tnumber),
+	FOREIGN KEY (regElem_id) REFERENCES regulatory_elements(id),
+   FOREIGN KEY (factor_name) REFERENCES transcription_factors(name)
+	);
+	
+
+CREATE TABLE Associated_Tnumber (
+	regElem_id INT NOT NULL,
+	tnumber VARCHAR(20) NOT NULL,
+	PRIMARY KEY (regElem_id, tnumber),
+	FOREIGN KEY (regElem_id) REFERENCES regulatory_elements(id),
+   FOREIGN KEY (tnumber) REFERENCES t_number(tnumber)
+	)TYPE=INNODB;
+	

@@ -18,6 +18,14 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+       },
+    // Class Properties
+    {
+        type: 'geneSequence',
+        displayProperties: {
+            'Sequence': 'sequence',
+            'Id': 'id'
+        }
    });
 
    return GeneSequence;

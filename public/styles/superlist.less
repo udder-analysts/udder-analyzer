@@ -1,0 +1,32 @@
+.superlist {
+    position: relative;
+    height: 100%;
+    
+    .supertable {
+        width: 100%;
+        max-width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        table-layout: fixed;
+
+        .selected {
+            background: blue;
+            color: white;
+        }
+
+        tr {
+            max-width: 100%;
+
+            th {
+                text-align: left;
+            }
+
+            td {
+                max-width: 100%;
+                word-wrap: break-word;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
+}

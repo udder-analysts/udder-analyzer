@@ -1,0 +1,20 @@
+<div class='superlist'>
+    <table class='supertable'>
+        <thead>
+            <tr class='header'>
+            <% _.each(columns, function(column) { %>
+                <th><%= column %></th> 
+            <% }); %>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each(models, function(model) { %>
+            <tr data-id="<%= model.id %>">
+                <% _.each(properties, function(prop) { %>
+                <td><% print(model.get(prop)); %></td>
+                <% }); %>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

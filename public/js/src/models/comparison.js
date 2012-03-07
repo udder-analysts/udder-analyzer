@@ -16,6 +16,13 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+    },
+    // Class Properties
+    {
+        type: 'comparison',
+        displayProperties: {
+            'Comparison': 'comparison'
+        }
    });
 
    return Comparison;

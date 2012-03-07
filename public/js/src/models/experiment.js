@@ -20,6 +20,16 @@ define([
       toggleSelect: function() {
          this.set({ select: !this.get('select') });
       }
+       },
+    // Class Properties
+    {
+        type: 'experiment',
+        displayProperties: {
+            'Experimenter': 'experimenter',
+            'Id': 'id',
+            'Date': 'dateof',
+            'Location': 'location'
+        }
    });
 
    return Experiment;
