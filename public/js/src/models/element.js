@@ -35,9 +35,9 @@ define([
     },
     // Class Properties
     {
-        type: 'regualtoryElement',
+        type: 'element',
         displayProperties: {
-            'Id': 'id',
+            //'Id': 'id',
             'Beginning': 'beginning',
             'Length' : 'length',
             'Sense' : 'sense',

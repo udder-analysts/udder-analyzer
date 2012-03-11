@@ -20,7 +20,7 @@ define([
     },
    // Class Properties
     {
-        type: 'transcriptionFacor',
+        type: 'factor',
         displayProperties: {
             'Name': 'name'
         }

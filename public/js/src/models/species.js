@@ -22,8 +22,7 @@ define([
     {
         type: 'species',
         displayProperties: {
-            'Name': 'name',
-            'id': 'id'
+            'Name': 'name'
         }
     });
 

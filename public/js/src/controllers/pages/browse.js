@@ -33,13 +33,27 @@ define([
             return this;
         },
 
+        modifyStack: function(params, pane) {
+            var activeIndex = _.indexOf(this.paneStack, pane);
+
+            for (var i = this.paneStack.length; i > activeIndex + 1; i--) {
+                this.paneStack.pop().remove();
+            }
+
+            this.addPane(params);
+            
+        },
+
         addPane: function(params) {
             var pane = BrowseView.getNextPane(params);
             this.paneStack.push(pane);
             this.activePane = pane;
-            this.activePane.bind('selected', this.addPane, this);
+            this.activePane.bind('selected', this.modifyStack, this);
 
             this.paneContainer.append(pane.render().el);
+        },
+
+        activatePane: function(pane){
         }
     }, 
     // Class properties
@@ -49,17 +63,14 @@ define([
         // pane adding a key-value pair of the form type-id.
         getNextPane: function(params) {
             var pane, data;
-            params = params || {};
+            params = _.clone(params) || {};
             
-            console.log(params);
-
-            /*
             // if element - element deail
             if (params.element) {
-                pane = createList(params, ElementDetail);
+                pane = createDetail(params);
             }
             // if factor - element list
-            else*/ if (params.factor) {
+            else if (params.factor) {
                 pane = createList(params, Elements);
             }
             // if gene - factor list
@@ -75,7 +86,7 @@ define([
                 pane = createList(params, Experiments);
             }
             // if species - comparison list
-            if (params.species) {
+            else if (params.species) {
                 pane = createList(params, Comparisons);
             }
             // if nothing - species list
@@ -84,6 +95,14 @@ define([
             }
 
             return pane;
+
+            function createDetail(params) {
+                var pane, detail;
+                detail = new ElementDetail(params);
+                pane = new ElementDetailView(_.extend(params, { models: detail }));
+                detail.fetch();
+                return pane;
+            }
 
             function createList(params, collectionType) {
                 var pane, collection;

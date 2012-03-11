@@ -16,9 +16,9 @@ define([
 
         sortBy: 'stage',
 
-        displayProperties: {
-            'Stage': 'stage'
-        },
+        //displayProperties: {
+        //    'Stage': 'stage'
+        //},
 
         initialize: function(models, options) {
             // If a species is passed in, use it to buld the url

@@ -11,21 +11,23 @@ define([
     */
     RegulatoryElementList = Backbone.Collection.extend({
         model: Element, 
-        url: '/regulatoryElement',
+        url: '/elements',
         sortBy: 'name',
+        order: 'asc',
       
-        displayProperties: {
-            'Id': 'id'
-        },
+        //displayProperties: {
+         //   'Name': 'name'
+       // },
 		
 		initialize: function(models, options) {
             // If a transcription factor is passed in, use it to buld the url
-            if (options.transcriptionFactor) {
-                this.url = '/transcriptionFactor/' +  encodeURIComponent(options.transcriptionFactor)
-                + '/regulatoryElement';
+            if (options.experiment && options.gene && options.factor) {
+                this.url = '/experiments/' + encodeURIComponent(options.experiment)
+                + '/genes/' + encodeURIComponent(options.gene) + '/factors/' +  encodeURIComponent(options.factor)
+                + '/elements';
             }
             else if (options.gene) {
-            	this.url = '/gene/' + options.gene + '/regulatoryElement';
+            	this.url = '/genes/' + options.gene + '/elements';
             }
         },
       
@@ -35,7 +37,8 @@ define([
             params = {
         	    dataType: 'json',
                 data: {
-                    sortBy: this.sortBy
+                    sortBy: this.sortBy,
+                    order: this.order
                 }
             };
 

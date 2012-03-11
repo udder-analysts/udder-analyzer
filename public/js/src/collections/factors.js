@@ -11,17 +11,19 @@ define([
     */
    FactorList = Backbone.Collection.extend({
       model: Factor, 
-      url: '/transcriptionFactor',
+      url: '/factors',
       sortBy: 'name',
+      order: 'asc',
       
-      displayProperties: {
-      'Name': 'name'
-      },
+      //displayProperties: {
+      //'Name': 'name'
+      //},
 		
 		initialize: function(models, options) {
             // If a gene is passed in, use it to buld the url
-            if (options.gene) {
-                this.url = '/gene/' + encodeURIComponent(options.gene) + '/transcriptionFactor';
+            if (options.experiment && options.gene) {
+                this.url = '/experiments/' + encodeURIComponent(options.experiment)
+                + '/genes/' + encodeURIComponent(options.gene) + '/factors';
             }
         },
       
@@ -31,7 +33,8 @@ define([
         params = {
         	dataType: 'json',
             data: {
-                sortBy: this.sortBy
+                sortBy: this.sortBy,
+                order: this.order
             }
         };
 

@@ -24,7 +24,6 @@ define([
             
             this.columns = this.model.model.displayProperties;
             this.type = this.model.model.type;
-
             this.selected = null;
         },
 
@@ -40,7 +39,8 @@ define([
             var el = $(e.currentTarget), id, params = {};
 
             // If the header row was clicked do nothing
-            if (el.hasClass('header')) return false;
+            // or if the clicked row is already selected.
+            if (el.hasClass('header') || el.hasClass('selected')) return false;
 
             // Otherwise highlight the selected row and notify the page of the
             // selection. This list's model type and selected item's id must be
@@ -52,19 +52,22 @@ define([
             id = el.attr('data-id');
             params[this.type] = id;
 
-            this.trigger('selected', _.extend(this.options, params));
+            this.trigger('selected', _.extend(this.options, params), this);
         },
 
         render: function() {
             // If this is the initial render
             if (!this.rendered) {
+                var width = _.keys(this.columns).length * 100;
+
                 // Render the general pane structure so it can be added
                 // to the page
                 var paneContext = {
                     title: this.type,
+                    width: (width < 300) ? 300 : width 
                 };
 
-                this.$el.html(this.paneTemplate(paneContext));
+                this.setElement(this.paneTemplate(paneContext));
                 this.rendered = true;
             }
 
@@ -79,31 +82,12 @@ define([
                 this.$('.content').empty();
                 this.$('.content').html(this.listTemplate(listContext));
 
-                /*
-                // render a row for each model, appending to tbody fragment
-                this.model.each(this.renderRow, this);
-                // add all rows to DOM at once
-                */
-
                 // init the fixedHeader
                 this.$('table').fixedHeaderTable({themeClass: 'supertable'});
             }
 
             this.delegateEvents();
             return this;
-        },
-
-        renderRow: function(model) {
-            var context;
-            
-            // For each displayable property, add a table cell
-            // finally set the data-id attribute to this model's id
-            
-            this.tablebody.append(
-                $('<tr data-id="' + model.id + '"><td>' + model.get('name') + '</td><td>' + model.id + '</td></tr>')
-            );
-            
-            // return row
         }
     });
 

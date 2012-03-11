@@ -15,21 +15,20 @@ define([
     */
     ExperimentList = Backbone.Collection.extend({
         model: Experiment,
-        url: '/experiment',
+        url: '/experiments',
         sortBy: 'name',
-        displayProperties: {
-            'Stage': 'stage'
-		},
+        //displayProperties: {
+        //    'Stage': 'stage'
+		//},
+		filter: {},
 
 		initialize: function(models, options) {
             this.timerange = {};
 
 		    // If a comparison is passed in, use it to buld the url
-			if (options.comparison) {
-				this.url = '/comparison/' + encodeURIComponent(options.comparison) + '/experiment';
-			}
-			else if(options.gene) {
-			    this.url = '/gene/' + encodeURIComponent(options.gene) + '/experiment/';
+			if (options.species && options.comparison) {
+				this.url = '/species/' + encodeURIComponent(options.species) + '/comparisons/' +
+				encodeURIComponent(options.comparison) + '/experiments';
 			}
 		},
         sync: function(method, model, options) {
@@ -42,7 +41,9 @@ define([
                     timeRange: {
                         from: this.timerange.from,
                         to: this.timerange.to
-                    }
+                    },
+                    filter: this.filter,
+                    value: this.value
                 }
             };
 

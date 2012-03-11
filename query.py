@@ -58,7 +58,7 @@ def queryGenesForExp(expID):
     return cur.fetchall()
 
 def queryFactorsForGeneExp(expID, geneID):
-    query = """SELECT f.name, f.reg_element FROM job_parameters j, 
+    query = """SELECT DISTINCT f.name FROM job_parameters j, 
                       regulatory_elements r, transcription_factors f 
                WHERE j.exp_id='%s' AND j.gene_id='%s' AND 
                      j.gene_id=r.gene_id AND r.id=f.reg_element"""
@@ -73,7 +73,7 @@ def queryElemForFacGeneExp(expID, geneID, facID):
                WHERE f.name='%s' AND f.reg_element=r.id AND 
                      r.experiment_id='%s' AND r.gene_id='%s';"""
     cur.execute(query % (facID, expID, geneID))
-    cur.fetchall()
+    return cur.fetchall()
 
 def queryExpForComp(compID):
     query = """SELECT * FROM experiment WHERE comparison='%s';"""
@@ -111,4 +111,29 @@ def queryGenesForExpRegulated(expID, regulation):
                       g.beginsite, g.endsite FROM genes g, job_parameters j 
                WHERE j.exp_id='%s' AND j.regulation='%s' AND j.gene_id=g.id"""
     cur.execute(query % (expID, regulation))
+    return cur.fetchall()
+
+def queryElemForGeneExpSort(expID, geneID, sort):
+    query = """SELECT * FROM regulatory_elements 
+               WHERE experiment_id='%s' AND gene_id='%s'
+               SORT BY %s;"""
+    cur.execute(query % (expID, geneID, sort))
+    return cur.fetchall()
+
+def queryElemForGeneExpLvalue(expID, geneID, lvalue):
+    query = """SELECT * FROM regulatory_elements 
+               WHERE experiment_id='%s' AND gene_id='%s' AND lvalue='%s';"""
+    cur.execute(query % (expID, geneID, lvalue))
+    return cur.fetchall()
+  
+def queryElementDetails(elemID):
+    query = """SELECT r.id, r.beginning, r.length, r.sense, r.model, 
+                      r.reg_sequence, r.la, r.la_slash, r.lq, r.ld, r.lpv, r.sc,
+                      r.sm, r.spv, r.ppv, r.gene_id, r.experiment_id, e.dateof,
+                      e.location, e.experimenter, e.comparison, e.species, 
+                      t.name 
+               FROM regulatory_elements r, experiment e, transcription_factors t
+               WHERE r.id='%s' AND r.experiment_id=e.id 
+                     AND r.id=t.reg_element"""
+    cur.execute(query % (elemID))
     return cur.fetchall()

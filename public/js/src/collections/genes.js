@@ -14,17 +14,18 @@ define([
     */
    GeneList = Backbone.Collection.extend({
       model: Gene,
-      url: '/gene',
+      url: '/genes',
       sortBy: 'name',
+      order: 'asc',
       
-      	displayProperties: {
-        'Name': 'name'
-        },
+      	//displayProperties: {
+        //'Name': 'name'
+        //},
 		
 		initialize: function(models, options) {
             // If an experiment is passed in, use it to buld the url
             if (options.experiment) {
-                this.url = '/experiment/' + encodeURIComponent(options.experiment) + '/gene';
+                this.url = '/experiments/' + encodeURIComponent(options.experiment) + '/genes';
             }
         },
       
@@ -34,7 +35,8 @@ define([
         params = {
         	dataType: 'json',
             data: {
-                sortBy: this.sortBy
+                sortBy: this.sortBy,
+                order: this.order
             }
         };
 

@@ -26,7 +26,6 @@ define([
         type: 'experiment',
         displayProperties: {
             'Experimenter': 'experimenter',
-            'Id': 'id',
             'Date': 'dateof',
             'Location': 'location'
         }
