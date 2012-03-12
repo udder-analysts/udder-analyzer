@@ -44,7 +44,7 @@ def queryGenes(sortby, order, reg):
         query = """SELECT * FROM genes;"""
         cur.execute(query % (reg))
     else:
-        query = """SELECT g.species, g.name, g.abbreviation, g.beginsite, g.endsite FROM genes;"""
+        query = """SELECT g.species, g.name, g.abbreviation, g.chromosome, g.beginsite, g.endsite,  FROM genes;"""
         cur.execute(query)
     return cur.fetchall()
 
