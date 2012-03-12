@@ -4,8 +4,9 @@ define([
     'backbone',
     'src/controllers/pages/browse',
     'src/controllers/pages/fileUpload',
-    'src/controllers/pages/geneSearch'
-], function($, _, Backbone, BrowseView, UploadView, GeneSearchView) {
+    'src/controllers/pages/geneSearch',
+    'src/controllers/pages/factorSearch'
+], function($, _, Backbone, BrowseView, UploadView, GeneSearchView, FactorSearchView) {
     var App;
 
     App = Backbone.Router.extend({
@@ -13,7 +14,8 @@ define([
             '': 'browse',
             'browse': 'browse',
             'upload': 'fileUpload',
-            'gene-search': 'geneSearch'
+            'gene-search': 'geneSearch',
+            'factor-search': 'factorSearch'
         },
 
         initialize: function() {
@@ -54,6 +56,14 @@ define([
             $('#content').contents().detach();
             // render view
             $('#content').html(this.geneSearchView.render().el);
+        },
+
+        factorSearch: function() {
+            if (!this.factorSearchView) {
+                this.factorSearchView = new FactorSearchView();
+            }
+            $('#content').contents().detach();
+            $('#content').html(this.factorSearchView.render().el);
         }
     });
 

@@ -14,7 +14,10 @@ define([
 
         url: '/comparisons',
 
-        sortBy: 'stage',
+        sortOn: 'comparison',
+        sortOrder: 'asc',
+
+        dirty: false,
 
         //displayProperties: {
         //    'Stage': 'stage'
@@ -33,10 +36,12 @@ define([
             params = {
                 dataType: 'json',
                 data: {
-                    sortBy: this.sortBy
+                    sortby: this.sortOn,
+                    order: this.sortOrder
                 }
             };
 
+            this.dirty = true;
             $.ajax(this.url, _.extend(options, params));
         }   
     });

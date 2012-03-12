@@ -2,7 +2,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'src/controllers/pages/page',
+    'text!/public/templates/pages/browse.html',
+    'src/controllers/superBar',
     'src/controllers/superList',
     'src/controllers/elementDetail',
     'src/collections/species',
@@ -12,12 +13,80 @@ define([
     'src/collections/factors',
     'src/collections/elements',
     'src/models/elementDetail'
-], function($, _, Backbone, PageView, SuperList, ElementDetailView, 
+], function($, _, Backbone, BrowseTemplate, SuperBar, SuperList, ElementDetailView, 
         Species, Comparisons, Experiments, Genes, Factors, Elements, ElementDetail
     ) {
     var BrowseView;
 
-    BrowseView = PageView.extend({
+    BrowseView = Backbone.View.extend({
+        initialize: function() {
+            this.template = _.template(BrowseTemplate);
+            this.paneStack = [];
+            this.activePane = null;
+        },
+
+        render: function() {
+            if (!this.rendered) {
+                this.$el.html(this.template());
+
+                // render bar
+                this.bar = new SuperBar();
+                this.barContainer = this.$('.bar-container');
+
+                // render initial pane stack
+                this.paneContainer = this.$('.pane-container');
+                this.addPane({});
+                this.rendered = true;
+            }
+
+            this.barContainer.empty();
+            this.barContainer.html(this.bar.render().el);
+
+            return this;
+        },
+
+        modifyStack: function(params, pane) {
+            var activeIndex = _.indexOf(this.paneStack, pane);
+
+            for (var i = this.paneStack.length; i > activeIndex + 1; i--) {
+                this.paneStack.pop().remove();
+            }
+
+            this.addPane(params);
+            
+        },
+
+        addPane: function(params) {
+            var pane = BrowseView.getNextPane(params);
+            pane.bind('selected', this.modifyStack, this);
+            pane.bind('selected:column', this.activatePane, this);
+            pane.bind('focus', this.activatePane, this);
+
+            this.paneStack.push(pane);
+            this.activatePane(pane);
+
+            // pane is rendered in activatePane.
+            this.paneContainer.append(pane.el);
+            // ensure focus
+            pane.$el.focus();
+        },
+
+        activatePane: function(pane){
+            if (this.activePane) {
+                this.activePane.active = false;
+                this.activePane.$el.blur();
+                this.activePane.render();
+            }
+
+            pane.active = true;
+            pane.render();
+            pane.$el.focus();
+
+            this.bar.activePane = this.activePane = pane;
+        }
+    }, 
+    // Class properties
+    {
         // Determine next pane type based on parameters.
         // Parameters should be passed between panes, with each
         // pane adding a key-value pair of the form type-id.

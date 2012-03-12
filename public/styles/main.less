@@ -1,4 +1,5 @@
-@import "superpane.less";
+@import "superBar.less";
+@import "superPane.less";
 
 a {
     padding: 2px 10px;
@@ -6,19 +7,6 @@ a {
 
 a:hover {
     text-decoration: none;
-}
-
-.active {
-    color: white;
-    background: #348ff5;
-    font-weight: bold;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-}
-
-.active:hover {
-    color: white;
 }
 
 html, body {
@@ -41,11 +29,6 @@ html, body {
 .bar-container {
     padding: 5px;
     height: 50px;
-    float: right;
-
-    .form-search input {
-        width: 400px;
-    }
 }
 
 .pane-container {
@@ -55,4 +38,5 @@ html, body {
     width: 100%;
     overflow-x: scroll;
     white-space: nowrap;
+    vertical-align: top;
 }

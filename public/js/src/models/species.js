@@ -12,18 +12,18 @@ define([
         defaults: {
              name: 'unknown',
             selected: false
-        },
-
-        toggleSelect: function() {
-            this.set({ select: !this.get('select') });
         }
     },
     // Class Properties
     {
         type: 'species',
-        displayProperties: {
-            'Name': 'name'
-        }
+        displayProperties: [
+            {
+                property: 'name',
+                name: 'Name',
+                type: 'text'
+            }
+        ]
     });
 
     return Species;

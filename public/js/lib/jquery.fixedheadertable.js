@@ -16,6 +16,10 @@
  *
  * 
  * all CSS sizing (width,height) is done in pixels (px)
+ *
+ *
+ * MODIFIED BY MATT TOGNETTI - line 187
+ *
  */
 
 (function ($) {
@@ -176,6 +180,11 @@
                 }
                 
                 helpers._bindScroll($divBody, tableProps);
+
+
+                // Prevent visible header shifting.
+                // This is definitely a hack - Matt T.
+                $thead.css('visibility', 'hidden');
                 
                 return self;
             },

@@ -12,8 +12,9 @@ define([
     RegulatoryElementList = Backbone.Collection.extend({
         model: Element, 
         url: '/elements',
-        sortBy: 'name',
+        sortOn: 'beginning',
         order: 'asc',
+        dirty: false,
       
         //displayProperties: {
          //   'Name': 'name'
@@ -27,7 +28,7 @@ define([
                 + '/elements';
             }
             else if (options.gene) {
-            	this.url = '/genes/' + options.gene + '/elements';
+            	this.url = '/genes/' + encodeURIComponent(options.gene) + '/elements';
             }
         },
       
@@ -37,11 +38,12 @@ define([
             params = {
         	    dataType: 'json',
                 data: {
-                    sortBy: this.sortBy,
+                    sortby: this.sortOn,
                     order: this.order
                 }
             };
 
+            this.dirty = true;
             $.ajax(this.url, _.extend(options, params));
         }   
    });

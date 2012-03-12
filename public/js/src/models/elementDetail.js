@@ -29,27 +29,33 @@ define([
             factors: 'unknown',
             selected: false
         },
+        dirty: false,
 
-        toggleSelect: function() {
-            this.set({ select: !this.get('select') });
+        initialize: function(params) {
+        },
+
+        url: function() {
+            return 'elementDetails/' + this.id;
+        },
+
+        sync: function(method, model, options) {
+            var params;
+
+            params = {
+                dataType: 'json'
+            };
+
+            this.dirty = true;
+            $.ajax(this.url(), _.extend(options, params));
         }
     },
-    sync: function(method, model, options) {
-        var params;
-
-        params = {
-            dataType: 'json'
-        };
-
-        $.ajax(this.url, _.extend(options, params));
-    },   
     // Class Properties
     {
         type: 'elementDetail',
         displayProperties: {
             'species': 'species',
             'comparison': 'comparison', 
-            'experiment': 'experiment,
+            'experiment': 'experiment',
             'beginning': 'beginning',
             'model': 'model',
             'sense': 'sense',

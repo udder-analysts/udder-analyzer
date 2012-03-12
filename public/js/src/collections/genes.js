@@ -15,8 +15,9 @@ define([
    GeneList = Backbone.Collection.extend({
       model: Gene,
       url: '/genes',
-      sortBy: 'name',
-      order: 'asc',
+      sortOn: 'name',
+      sortOrder: 'asc',
+      dirty: false,
       
       	//displayProperties: {
         //'Name': 'name'
@@ -35,11 +36,12 @@ define([
         params = {
         	dataType: 'json',
             data: {
-                sortBy: this.sortBy,
-                order: this.order
+                sortby: this.sortOn,
+                order: this.sortOrder
             }
         };
 
+        this.dirty = true;
         $.ajax(this.url, _.extend(options, params));
       }
    });

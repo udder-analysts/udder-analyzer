@@ -12,9 +12,11 @@ define([
     SpeciesList = Backbone.Collection.extend({
         model: Species,
         url: '/species',
-        sortBy: 'name',
+        sortOn: 'name',
+        sortOrder: 'asc',
 
         intialize: function(models, options) {
+            this.dirty = false;
         },
 
         sync: function(method, model, options) {
@@ -23,9 +25,12 @@ define([
             params = {
                 dataType: 'json',
                 data: {
-                    sortBy: this.sortBy
+                    sortby: this.sortOn,
+                    order: this.sortOrder
                 }
             };
+
+            this.dirty = true;
 
             $.ajax(this.url, _.extend(options, params));
         }

@@ -16,11 +16,10 @@ define([
     ExperimentList = Backbone.Collection.extend({
         model: Experiment,
         url: '/experiments',
-        sortBy: 'name',
-        //displayProperties: {
-        //    'Stage': 'stage'
-		//},
+        sortOn: 'dateof',
+        sortOrder: 'asc',
 		filter: {},
+        dirty: false,
 
 		initialize: function(models, options) {
             this.timerange = {};
@@ -37,16 +36,13 @@ define([
             params = {
         	    dataType: 'json',
                 data: {
-                    sortBy: this.sortBy,
-                    timeRange: {
-                        from: this.timerange.from,
-                        to: this.timerange.to
-                    },
-                    filter: this.filter,
-                    value: this.value
+                    sortby: this.sortOn,
+                    order: this.sortOrder,
+                    filter: this.filter
                 }
             };
 
+            this.dirty = true;
             $.ajax(this.url, _.extend(options, params));
         }
    });

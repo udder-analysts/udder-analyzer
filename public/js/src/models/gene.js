@@ -26,14 +26,33 @@ define([
     // Class Properties
     {
         type: 'gene',
-        displayProperties: {
-            'Name': 'name',
-            'Abbrev':'abbreviation',
-            'Chromosome': 'chromosome',
-            'Begin Site': 'beginsite',
-            'End Site': 'endsite',
-            
-        }
+        displayProperties: [
+            {
+                name: 'Name',
+                property: 'name',
+                type: 'text'
+            },
+            {
+                name: 'Abbrev',
+                property: 'abbreviation',
+                type: 'text'
+            },
+            {
+                name: 'Chromosome',
+                property: 'chromosome',
+                type: 'number'
+            },
+            {
+                name: 'Begin Site',
+                property: 'beginsite',
+                type: 'number'
+            },
+            {
+                name: 'End Site',
+                property: 'endsite',
+                type: 'number'
+            }
+        ]
    });
 
    return Gene;

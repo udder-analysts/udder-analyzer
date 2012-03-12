@@ -20,9 +20,13 @@ define([
     // Class Properties
     {
         type: 'comparison',
-        displayProperties: {
-            'Comparison': 'comparison'
-        }
+        displayProperties: [
+            {
+                name: 'Comparison',
+                property: 'comparison',
+                type: 'text'
+            }
+        ]
    });
 
    return Comparison;

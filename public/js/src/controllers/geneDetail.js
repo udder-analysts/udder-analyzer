@@ -3,14 +3,14 @@ define([
     'underscore',
     'backbone',
     'text!/public/templates/components/superPane.html',
-    'text!/public/templates/components/elementDetail.html'
-], function($, _, Backbone, SuperPaneTemplate, ElementDetailTemplate) {
-    var ElementDetail;
+    'text!/public/templates/components/geneDetail.html'
+], function($, _, Backbone, SuperPaneTemplate, GeneDetailTemplate) {
+    var GeneDetail;
 
-    ElementDetail = Backbone.View.extend({
+    GeneDetail = Backbone.View.extend({
         className: 'pane',
         paneTemplate: _.template(SuperPaneTemplate),
-        detailTemplate: _.template(ElementDetailTemplate),
+        detailTemplate: _.template(GeneDetailTemplate),
 
         events: {
             'focus': 'focus',
@@ -33,7 +33,7 @@ define([
             if (!this.rendered) {
 
                 var paneContext = { 
-                    title: 'Element Detail',
+                    title: 'Gene Detail',
                     width: 300
                 };
 
@@ -54,5 +54,5 @@ define([
         }
     });
 
-    return ElementDetail;
+    return GeneDetail;
 });

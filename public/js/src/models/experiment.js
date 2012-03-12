@@ -24,11 +24,23 @@ define([
     // Class Properties
     {
         type: 'experiment',
-        displayProperties: {
-            'Experimenter': 'experimenter',
-            'Date': 'dateof',
-            'Location': 'location'
-        }
+        displayProperties: [
+            {
+                name: 'Experimenter',
+                property: 'experimenter',
+                type: 'text'
+            },
+            {
+                name: 'Date',
+                property: 'dateof',
+                type: 'date'
+            },
+            {
+                name: 'Location',
+                property: 'location',
+                type: 'text'
+            }
+        ]
    });
 
    return Experiment;

@@ -2,8 +2,13 @@
     <table class='supertable'>
         <thead>
             <tr class='header'>
-            <% _.each(columns, function(column) { %>
-                <th><%= column %></th> 
+            <% _.each(properties, function(column) { %>
+                <th class='column' data-type='<%= column.type %>' data-prop='<%= column.property %>'>
+                    <span class='column'>
+                        <%= column.name %>
+                    </span>
+                    <div class='sort inactive'></div> 
+                </th> 
             <% }); %>
             </tr>
         </thead>
@@ -11,7 +16,7 @@
             <% _.each(models, function(model) { %>
             <tr data-id="<%= model.id %>">
                 <% _.each(properties, function(prop) { %>
-                <td><% print(model.get(prop)); %></td>
+                <td><% print(model.get(prop.property)); %></td>
                 <% }); %>
             </tr>
             <% }); %>

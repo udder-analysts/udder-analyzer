@@ -36,22 +36,53 @@ define([
     // Class Properties
     {
         type: 'element',
-        displayProperties: {
-            //'Id': 'id',
-            'Beginning': 'beginning',
-            'Length' : 'length',
-            'Sense' : 'sense',
-            'Model' : 'model',
-            'La' : 'la',
-            'LaSlash' : 'la_slash',
-            'Lq' : 'lq',
-            'Ld' : 'ld',
-            'Lpv' : 'lpv',
-            'Sc' : 'sc',
-            'Sm' : 'sm',
-            'Spv' : 'spv',
-            'Ppv' : 'ppv'
-        }
+        displayProperties: [
+            {
+                name: 'Beginning',
+                property: 'beginning',
+                type: 'number'
+            },
+            {
+                name: 'Length',
+                property: 'length',
+                type: 'number'
+            },
+            {
+                name: 'Sense',
+                property: 'sense',
+                type: 'number'
+            },
+            {
+                name: 'Model',
+                property: 'model',
+                type: 'text'
+            },
+            {
+                name: 'La',
+                property: 'la',
+                type: 'number'
+            },
+            {
+                name: 'LaSlash',
+                property: 'la_slash',
+                type: 'number'
+            },
+            {
+                name: 'Lq',
+                property: 'lq',
+                type: 'number'
+            },
+            {
+                name: 'Ld',
+                property: 'ld',
+                type: 'number'
+            },
+            {
+                name: 'Lpv',
+                property: 'lpv',
+                type: 'number'
+            }
+        ]
     });
 
     return RegulatoryElement;

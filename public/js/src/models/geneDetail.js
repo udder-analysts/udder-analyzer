@@ -17,7 +17,7 @@ define([
     GeneDetail = Backbone.Model.extend({
         defaults: {
             species: 'unknown',
-            gname: 'unknown', 
+            name: 'unknown', 
             abbreviation: 'unknown',
             chromosome: 'unknown',
             begin: 'unknown',
@@ -25,32 +25,22 @@ define([
             sequence: 'unknown',
             selected: false
         },
+        dirty: false,
 
-        toggleSelect: function() {
-            this.set({ select: !this.get('select') });
+        sync: function(method, model, options) {
+            var params;
+
+            params = {
+                dataType: 'json'
+            };
+
+            this.dirty = true;
+            $.ajax(this.url, _.extend(options, params));
         }
     },
-    sync: function(method, model, options) {
-        var params;
-
-        params = {
-            dataType: 'json'
-        };
-
-        $.ajax(this.url, _.extend(options, params));
-    },   
     // Class Properties
     {
-        type: 'geneDetail',
-        displayProperties: {
-            'species': 'species',
-            'gname': 'name', 
-            'abbreviation': 'abbreviation,
-            'chromosome': 'chromosome',
-            'begin': 'begin',
-            'end': 'end',
-            'sequence': 'sequence'
-        }
+        type: 'geneDetail'
     });
 
     return GeneDetail;

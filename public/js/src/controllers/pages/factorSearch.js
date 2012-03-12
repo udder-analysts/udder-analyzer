@@ -5,19 +5,13 @@ define([
     'src/controllers/pages/page',
     'src/controllers/superList',
     'src/controllers/elementDetail',
-    'src/collections/species',
-    'src/collections/comparisons',
-    'src/collections/experiments',
-    'src/collections/genes',
     'src/collections/factors',
     'src/collections/elements',
     'src/models/elementDetail'
-], function($, _, Backbone, PageView, SuperList, ElementDetailView, 
-        Species, Comparisons, Experiments, Genes, Factors, Elements, ElementDetail
-    ) {
-    var BrowseView;
+], function($, _, Backbone, PageView, SuperList, ElementDetailView, Factors, Elements, ElementDetail) {
+    var FactorSearch;
 
-    BrowseView = PageView.extend({
+    FactorSearch = PageView.extend({
         // Determine next pane type based on parameters.
         // Parameters should be passed between panes, with each
         // pane adding a key-value pair of the form type-id.
@@ -25,33 +19,14 @@ define([
             var pane, data;
             params = _.clone(params) || {};
             
-            // if element - element deail
             if (params.element) {
                 pane = createDetail(params);
             }
-            // if factor - element list
-            else if (params.factor) {
+            if (params.factor) {
                 pane = createList(params, Elements);
             }
-            // if gene - factor list
-            else if (params.gene) {
-                pane = createList(params, Factors);
-            }
-            // if experiment - gene list
-            else if (params.experiment) {
-                pane = createList(params, Genes);
-            }
-            // if comparison - experiment list
-            else if (params.comparison) {
-                pane = createList(params, Experiments);
-            }
-            // if species - comparison list
-            else if (params.species) {
-                pane = createList(params, Comparisons);
-            }
-            // if nothing - species list
             else {
-                pane = createList(params, Species);
+                pane = createList(params, Factors);
             }
 
             return pane;
@@ -74,5 +49,5 @@ define([
         }
     });
 
-    return BrowseView;
+    return FactorSearch;
 });

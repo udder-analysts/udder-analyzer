@@ -1,0 +1,104 @@
+@import "variables.less";
+
+.superlist {
+    position: relative;
+    height: 100%;
+    
+    .supertable {
+        width: 100%;
+        max-width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        table-layout: fixed;
+
+        thead {
+
+            tr {
+
+                th {
+                    text-align: left;
+
+                    span {
+                        &:hover {
+                            cursor: pointer;
+                            color: @darkblue;
+                        }
+
+                        &.selected {
+                            color: @blue;
+                        }
+                    }
+
+                    .sort {
+                        display: inline-block;
+                        width: 12px;
+                        height: 7px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+
+                        &.inactive {
+                            background-image: url('/public/images/sort-inactive.png');
+                            background-repeat: no-repeat;
+
+                            &:hover {
+                                background-image: url('/public/images/sort-desc.png');
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        &.asc {
+                            background-image: url('/public/images/sort-asc.png');
+                            background-repeat: no-repeat;
+
+                            &:hover {
+                                background-image: url('/public/images/sort-asc.png');
+                            }
+                        }
+
+                        &.desc {
+                            background-image: url('/public/images/sort-desc.png');
+                            background-repeat: no-repeat;
+
+                            &:hover {
+                                background-image: url('/public/images/sort-desc.png');
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        tbody {
+            
+            tr {
+                max-width: 100%;
+
+                &:hover {
+                    cursor: pointer;
+                    background: #f9f9f9;
+                }
+                
+                /*
+                &:nth-child(even) {
+                    background: #F9F9F5;
+                }
+                */
+
+                td {
+                    max-width: 100%;
+                    word-wrap: break-word;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                &.selected {
+                    background: @blue;
+                    color: white;
+                }
+            }
+        }
+    }
+}

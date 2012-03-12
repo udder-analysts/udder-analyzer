@@ -21,9 +21,13 @@ define([
    // Class Properties
     {
         type: 'factor',
-        displayProperties: {
-            'Name': 'name'
-        }
+        displayProperties: [
+            {
+                name: 'Name',
+                property: 'name',
+                type: 'text'
+            }
+        ]
    });
 
    return TranscriptionFactor;

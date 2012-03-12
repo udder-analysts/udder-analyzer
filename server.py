@@ -52,22 +52,23 @@ def browse():
 @app.route('/species', methods=['GET', 'POST'])
 def getSpecies():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedSpecies()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = querySpecies(request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = querySpecies()
+        result = querySpecies(None, None)
     for entry in result:
         dictEntry = getSpeciesDict(entry)
+        print dictEntry
         arr.append(dictEntry)
     return json.dumps(arr)
 
 @app.route('/comparisons', methods=['GET', 'POST'])
 def getComparisons():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedComparisons()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryComparisons(request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = queryComparisons()
+        result = queryComparisons(None, None)
     for entry in result:
         dictEntry = getCompDict(entry)
         arr.append(dictEntry)
@@ -76,10 +77,10 @@ def getComparisons():
 @app.route('/experiments', methods=['GET', 'POST'])
 def getExperiments():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedExperiments()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryExperiments(request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = queryExperiments()
+        result = queryExperiments(None, None)
     for entry in result:
         dictEntry = getExpDict(entry)
         arr.append(dictEntry)
@@ -88,10 +89,15 @@ def getExperiments():
 @app.route('/genes', methods=['GET', 'POST'])
 def getGenes():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedGenes()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        sortby = request.args.getlist('sortby')[0]
+        order = request.args.getlist('order')[0]
+        result = queryGenes(sortby, order, None)
+    elif request.args.getlist('reg'):
+        reg = request.args.getlist('reg')[0]
+        result = queryGenes(None, None, reg)
     else:
-        result = queryGenes()
+        result = queryGenes(None, None, None)
     for entry in result:
         dictEntry = getGeneDict(entry)
         arr.append(dictEntry)
@@ -100,10 +106,10 @@ def getGenes():
 @app.route('/elements', methods=['GET', 'POST'])
 def getElements():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedElements()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryElements(request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = queryElements()
+        result = queryElements(None, None)
     for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
@@ -112,10 +118,10 @@ def getElements():
 @app.route('/factors', methods=['GET', 'POST'])
 def getFactors():
     arr = []
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedFactors()
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryFactors(request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = queryFactors()
+        result = queryFactors(None, None)
     for entry in result:
         dictEntry = getFactorDict(entry)
         arr.append(dictEntry)
@@ -125,12 +131,12 @@ def getFactors():
 def getComparisonForSpecies(specID):
     arr = []
     specID = urllib.unquote(specID)
-    if request.method == 'POST' and request.args.getlist('sortby')[0]:
-        result = querySortedCompForSpec(specID)
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryCompForSpec(specID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
     else:
-        result = queryCompForSpec(specID)
+        result = queryCompForSpec(specID, None, None)
     for entry in result:
-        dictEntry = {'id': entry[0], 'comparison': entry[0]}
+        dictEntry = getCompForSpecDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
 
@@ -139,7 +145,11 @@ def getExperimentForCompSpec(specID, compID):
     arr = []
     specID = urllib.unquote(specID)
     compID = urllib.unquote(compID)
-    for entry in queryExpForCompSpec(specID, compID):
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryExpForCompSpec(specID, compID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
+    else:
+        result = queryExpForCompSpec(specID, compID, None, None)
+    for entry in result:
         dictEntry = getExpDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -148,10 +158,12 @@ def getExperimentForCompSpec(specID, compID):
 def getGenesForExp(expID):
     arr = []
     expID = urllib.unquote(expID)
-    if request.method == 'POST' and request.args.getlist('reg')[0]:
-        result = queryGenesForExpRegulated(expID, request.args.getlist('reg')[0])
+    if request.args.getlist('reg'):
+        result = queryGenesForExp(expID, None, None, request.args.getlist('reg')[0])
+    elif request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryGenesForExp(expID, request.args.getlist('sortby')[0], request.args.getlist('order')[0], None)
     else:
-        result = queryGenesForExp(expID)
+        result = queryGenesForExp(expID, None, None, None)
     for entry in result:
         dictEntry = getGeneDict(entry)
         arr.append(dictEntry)
@@ -162,8 +174,12 @@ def getFactorsForGeneExp(expID, geneID):
     arr = []
     expID = urllib.unquote(expID)
     geneID = urllib.unquote(geneID)
-    for entry in queryFactorsForGeneExp(expID, geneID):
-        dictEntry = getFactorDict(entry)
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryFactorsForGeneExp(expID, geneID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
+    else:
+        result = queryFactorsForGeneExp(expID, geneID, None, None)
+    for entry in result:
+        dictEntry = getDistinctFactorDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
 
@@ -173,7 +189,11 @@ def getElemForFacGeneExp(expID, geneID, facID):
     expID = urllib.unquote(expID)
     geneID = urllib.unquote(geneID)
     facID = urllib.unquote(facID)
-    for entry in queryElemForFacGeneExp(expID, geneID, facID):
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryElemForFacGeneExp(expID, geneID, facID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
+    else:
+        result = queryElemForFacGeneExp(expID, geneID, facID, None, None)
+    for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -182,7 +202,11 @@ def getElemForFacGeneExp(expID, geneID, facID):
 def getExpForComp(compID):
     arr = []
     compID = urllib.unquote(compID)
-    for entry in queryExpForComp(compID):
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        result = queryExpForComp(compID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
+    else:
+        result = queryExpForComp(compID, None, None)
+    for entry in result:
         dictEntry = getExpDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -192,15 +216,21 @@ def getElemForGeneExp(expID, geneID):
     arr = []
     expID = urllib.unquote(expID)
     geneID = urllib.unquote(geneID)
-    if request.method == 'POST':
-        if request.args.getlist('sortby'):
-            result = queryElemForGeneExpSort(expID, geneID, request.args.getlist('sortby')[0])
-        elif request.args.getlist('lvalue'):
-            result = queryElemForGeneExpLvalue(expID, geneID, request.args.getlist('lvalue')[0])
-        else:
-            result = queryElemForGeneExp(expID, geneID)
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        sortby = request.args.getlist('sortby')[0]
+        order = request.args.getlist('order')[0]
+        result = queryElemForGeneExp(expID, geneID, sortby, order, None, None, None, None, None)
+    elif request.args.getlist('lvalue') and request.args.getlist('lvalFrom') and request.args.getlist('lvalTo'):
+        lvalue = request.args.getlist('lvalue')[0]
+        lvalFrom = request.args.getlist('lvalFrom')[0]
+        lvalTo = request.args.getlist('lvalTo')[0]
+        result = queryElemForGeneExp(expID, geneID, None, None, lvalue, lvalFrom, lvalTo, None, None)
+    elif request.args.getlist('locFrom') and request.args.getlist('locTo'):
+        locFrom = request.args.getlist('locFrom')[0]
+        locTo = request.args.getlist('locTo')[0]
+        result = queryElemForGeneExp(expID, geneID, None, None, None, None, None, locFrom, locTo)
     else:
-        result = queryElemForGeneExp(expID, geneID)
+        result = queryElemForGeneExp(expID, geneID, None, None, None, None, None, None, None)
     for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
@@ -210,7 +240,13 @@ def getElemForGeneExp(expID, geneID):
 def getElemForGene(geneID):
     arr = []
     geneID = urllib.unquote(geneID)
-    for entry in queryElemForGene(geneID):
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        sortby = request.args.getlist('sortby')[0]
+        order = request.args.getlist('order')[0]
+        result = queryElemForGene(geneID, sortby, order)
+    else:
+        result = queryElemForGene(geneID, None, None)
+    for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -219,7 +255,13 @@ def getElemForGene(geneID):
 def getElemForFactor(facID):
     arr = []
     facID = urllib.unquote(facID)
-    for entry in queryElemForFactor(facID):
+    if request.args.getlist('sortby') and request.args.getlist('order'):
+        sortby = request.args.getlist('sortby')[0]
+        order = request.args.getlist('order')[0]
+        result = queryElemForFactor(facID, sortby, order)
+    else:
+        result = queryElemForFactor(facID, None, None) 
+    for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -239,19 +281,11 @@ def getSingleElemForGeneExp(expID, geneID, elemID):
 def getElementDetails(elemID):
     arr = []
     elemID = urllib.unquote(elemID)
-    for entry in queryElementDetails(elemID):
-        dictEntry = {'id': entry[0], 'beginning': entry[1], 'length': entry[2],
-                     'sense': entry[3], 'model': entry[4], 
-                     'reg_sequence': entry[5], 'la': entry[6], 
-                     'la_slash': entry[7], 'lq': entry[8], 'ld': entry[9], 
-                     'lpv': entry[10], 'sc': entry[11], 'sm': entry[12], 
-                     'spv': entry[13], 'ppv': entry[14], 'gene_id': entry[15], 
-                     'experiment_id': entry[16], 'dateof': entry[17], 
-                     'location': entry[18], 'experimenter': entry[19], 
-                     'comparison': entry[20], 'species': entry[21], 
-                     'factor_name': entry[22]}
-        arr.append(dictEntry)
-    return json.dumps(arr)
+    entry = queryElementDetails(elemID)[0]
+    print entry
+    dictEntry = getElemDetailDict(entry)
+        #arr.append(dictEntry)
+    return json.dumps(dictEntry)
 
 #====================
 #POST Parameter URLs

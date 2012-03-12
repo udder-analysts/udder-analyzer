@@ -1,0 +1,59 @@
+@import "variables.less";
+@import "superList.less";
+@import "elementDetail.less";
+@import "geneDetail.less";
+
+.pane {
+    width: 300px;
+    height: 98%;
+    padding: 5px;
+    display: inline-block;
+    vertical-align: top;
+
+    &:focus {
+        border: 0px;
+        outline-width: 0px;
+        outline-style: none;
+    }
+
+    .title {
+        &:hover {
+            cursor: pointer;
+        }
+
+        margin-bottom: 5px;
+
+        h3 {
+            display: inline;
+            padding: 2px;
+
+            &:hover {
+                color: @darkblue;
+            }
+        }
+
+        &.active {
+
+            h3 {
+                color: @white;
+                background: @darkblue;
+                font-weight: bold;
+                -webkit-border-radius: 7px;
+                -moz-border-radius: 7px;
+                border-radius: 7px;
+            }
+
+            h3:hover {
+                background: @darkblue;
+                color: @white;
+            }
+        }
+    }
+
+    .header {
+    }
+
+    .content {
+        height: 90%;
+    }
+}
