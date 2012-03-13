@@ -42,3 +42,28 @@ def getElemDetailDict(entry):
 
 def getDistinctFactorDict(entry):
     return {'id': entry[0], 'name': entry[0]}
+
+def getGeneDictWithExpInfo(entry):
+    return {'id': entry[0], 'species': entry[1], 'name': entry[2], 
+            'abbreviation': entry[3], 'chromosome': entry[4], 
+            'beginsite': entry[5], 'endsite': entry[6],
+            'comparisons': entry[7], 'experiments': entry[8]}
+
+def getExpForGeneDict(entry):
+    return {'id': entry[0], 'dateof': entry[1], 'location': entry[2],
+            'experimenter': entry[3], 'comparison': entry[4], 
+            'species': entry[5], 'regulation': entry[6]}
+
+def getMultipleFactorDict(entry):
+    return {'name': entry[0], 'comparison': entry[1], 'regulation': entry[2],
+            'experimenter': entry[3], 'species': entry[4], 'dateof': entry[5]}
+
+def getFactorSummaryDict(entry):
+    return {'id': entry[0], 'name': entry[0], 'models': entry[1], 'genes': entry[2], 
+            'occurences': entry[3]}
+
+def getElemForFacDict(entry):
+    return {'id': entry[0], 'dateof': entry[1], 'location': entry[2], 
+            'experimenter': entry[3], 'comparison': entry[4], 
+            'species': entry[5], 'gene_name': entry[6], 'beginning': entry[7],
+            'length': entry[8], 'sense': entry[9], 'model': entry[10]}

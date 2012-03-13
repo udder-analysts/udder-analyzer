@@ -34,14 +34,17 @@ define([
 
                 var paneContext = { 
                     title: 'Element Detail',
-                    width: 300
+                    width: 500
                 };
 
                 this.setElement(this.paneTemplate(paneContext));
                 this.rendered = true;
             }
 
+
             if (this.model.dirty) {
+                console.log(this.model.toJSON());
+
                 this.$('.content').html(
                     this.detailTemplate(this.model.toJSON()));
             }

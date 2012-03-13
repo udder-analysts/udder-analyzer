@@ -5,6 +5,7 @@ define([
     'src/controllers/pages/page',
     'src/controllers/superList',
     'src/controllers/elementDetail',
+    'src/controllers/elementBar',
     'src/collections/species',
     'src/collections/comparisons',
     'src/collections/experiments',
@@ -12,7 +13,7 @@ define([
     'src/collections/factors',
     'src/collections/elements',
     'src/models/elementDetail'
-], function($, _, Backbone, PageView, SuperList, ElementDetailView, 
+], function($, _, Backbone, PageView, SuperList, ElementDetailView, ElementBar, 
         Species, Comparisons, Experiments, Genes, Factors, Elements, ElementDetail
     ) {
     var BrowseView;

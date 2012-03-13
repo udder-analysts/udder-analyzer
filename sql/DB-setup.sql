@@ -1,15 +1,19 @@
 CREATE TABLE species (
    name VARCHAR(200) NOT NULL,
+   flagged int,
+   hidden int,
    PRIMARY KEY (name)
 )TYPE=INNODB;
 
 CREATE TABLE experiment (
    id INT NOT NULL AUTO_INCREMENT,
-   dateof VARCHAR(30) NOT NULL,
+   dateof INT NOT NULL,
    location VARCHAR(100),
    experimenter VARCHAR(50) NOT NULL,
    comparison VARCHAR(100) NOT NULL,
    species VARCHAR(200) NOT NULL,
+   flagged int,
+   hidden int,
    PRIMARY KEY (id),
    FOREIGN KEY (species) REFERENCES species(name),
    UNIQUE (experimenter, comparison, species, dateof)
@@ -23,6 +27,8 @@ CREATE TABLE genes (
    chromosome int,
    beginsite int,
    endsite int,
+   flagged int,
+   hidden int,
    PRIMARY KEY (id),
    FOREIGN KEY (species) REFERENCES species(name),
    UNIQUE (name, species)
@@ -31,6 +37,8 @@ CREATE TABLE genes (
 CREATE TABLE gene_sequence (
    id INT NOT NULL, -- DONT AUTO INCREMENT (FOREIGN KEY TO GENES)
    sequence TEXT NOT NULL,
+   flagged int,
+   hidden int,
    PRIMARY KEY (id),
    FOREIGN KEY (id) REFERENCES genes(id)
 )TYPE=INNODB;
@@ -74,6 +82,8 @@ CREATE TABLE job_parameters (
    explicit_T_dist FLOAT,
    handle_ambig_bases VARCHAR(20),
    tessJob VARCHAR(50),
+   flagged int,
+   hidden int,
    PRIMARY KEY (gene_id, exp_id),
    FOREIGN KEY (gene_id) REFERENCES genes(id),
    FOREIGN KEY (exp_id) REFERENCES experiment(id)
@@ -97,6 +107,8 @@ CREATE TABLE regulatory_elements (
    ppv FLOAT NOT NULL,
    gene_id INT NOT NULL,
    experiment_id INT NOT NULL,
+   flagged int,
+   hidden int,
    PRIMARY KEY (id),
    FOREIGN KEY (gene_id) REFERENCES genes(id),
    FOREIGN KEY (experiment_id) REFERENCES experiment(id),
@@ -106,6 +118,8 @@ CREATE TABLE regulatory_elements (
 CREATE TABLE transcription_factors (
    name VARCHAR(20) NOT NULL,
    reg_element int,
+   flagged int,
+   hidden int,
    PRIMARY KEY (name, reg_element),
    FOREIGN KEY (reg_element) REFERENCES regulatory_elements(id)
 )TYPE=INNODB;
@@ -113,6 +127,8 @@ CREATE TABLE transcription_factors (
 CREATE TABLE t_number (
    tnumber VARCHAR(20) NOT NULL,
    reg_element int,
+   flagged int,
+   hidden int,
    PRIMARY KEY (tnumber, reg_element),
    FOREIGN KEY (reg_element) REFERENCES regulatory_elements(id)
 )TYPE=INNODB;

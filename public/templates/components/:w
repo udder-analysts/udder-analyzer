@@ -1,0 +1,27 @@
+<div class='superbar'>
+    <table class='none'>
+        <tr>
+            <td class='list-filters'>
+            </td>
+            <td class='column-filters'>
+                <form class='form-inline'>
+                    <div class='control-group'>
+                        <div class='controls'>
+                            <select class='range-select'>
+                                <option value='La'>La</option>
+                                <option value='LaSlash'>La/</option>
+                                <option value='Lq'>Lq</option>
+                                <option value='Lpv'>Lpv</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type='numeric' class='input-small min' placeholder='min'/>
+                    <input type='numeric' class='input-small max' placeholder='max'/>
+                    <button type='submit' class='btn'>GO</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+

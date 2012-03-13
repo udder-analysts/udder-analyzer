@@ -42,7 +42,10 @@ define([
         this.dirty = true;
         $.ajax(this.url, _.extend(options, params));
       }   
-   });
+   },
+    {
+        type: Factor.type
+    });
 
    return FactorList;
 });

@@ -6,5 +6,57 @@
     <%= comparison %>
 
     <h4>Experiment</h4>
-    <%= experiment.experimenter %> <%= experiment.dateof %>
+    <%= experimenter %> <%= dateof %>
+
+    <br>
+    <br>
+    <div class='row'>
+        <div class='span2'>
+            <h4>Beginning</h4>
+            <%= beginning %>
+        </div>
+
+        <div class='span2 offset1'>
+            <h4>Sense</h4>
+            <%= sense %>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='span2'>
+            <h4>Length</h4>
+            <%= length %>
+        </div>
+        <div class='span2 offset1'>
+            <h4>Sequence</h4>
+            <%= reg_sequence %>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='span2'>
+            <h4>Model</h4>
+            <%= model %>
+        </div>
+        <div class='span2 offset1'>
+            <h4>Transcription Factors</h4>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='span2'>
+            <h4>Match Quality</h4>
+            <div>La: <%= la %></div>
+            <div>La/: <%= la_slash %></div>
+            <div>Lq: <%= lq %></div>
+            <div>Ld: <%= ld %></div>
+        </div>
+    </div>
+
+    <div class'row'>
+        <div class='span2 offset3'>
+            <div class='similar-elements'> find similar elements &gt;&gt;</div>
+        </div>
+    </div>
+
 </div>

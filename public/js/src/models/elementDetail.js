@@ -20,14 +20,15 @@ define([
         defaults: {
             species: 'unknown',
             comparison: 'unknown', 
-            experiment: 'unknown',
+            experimenter: 'unknown',
             beginning: 'unknown',
             model: 'unknown',
             sense: 'unknown',
             match_quality: 'unknown',
             sequence: 'unknown',
             factors: 'unknown',
-            selected: false
+            dateof: 'unknown',
+
         },
         dirty: false,
 
@@ -38,6 +39,11 @@ define([
             return 'elementDetails/' + this.id;
         },
 
+        parse: function(response) {
+            this.dirty = true;
+            return response;
+        },
+
         sync: function(method, model, options) {
             var params;
 
@@ -45,7 +51,6 @@ define([
                 dataType: 'json'
             };
 
-            this.dirty = true;
             $.ajax(this.url(), _.extend(options, params));
         }
     },

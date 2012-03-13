@@ -25,13 +25,6 @@ define([
     * experiment_id <int> The ID of the associated experiment
     */
     RegulatoryElement = Backbone.Model.extend({
-        defaults: {
-            selected: false
-        },
-
-        toggleSelect: function() {
-            this.set({ select: !this.get('select') });
-        },
     },
     // Class Properties
     {

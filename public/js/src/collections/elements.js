@@ -39,7 +39,13 @@ define([
         	    dataType: 'json',
                 data: {
                     sortby: this.sortOn,
-                    order: this.order
+                    order: this.order,
+                    lvalue: this.lval || undefined,
+                    lvalFrom: this.lvalMin || undefined,
+                    lvalTo: this.lvalMax || undefined,
+                    locFrom: this.locFrom || undefined,
+                    locTo: this.locTo || undefined,
+                    sense: this.sense || undefined
                 }
             };
 
@@ -47,6 +53,7 @@ define([
             $.ajax(this.url, _.extend(options, params));
         }   
    });
+
 
    return RegulatoryElementList;
 });

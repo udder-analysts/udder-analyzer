@@ -19,10 +19,6 @@ define([
       sortOrder: 'asc',
       dirty: false,
       
-      	//displayProperties: {
-        //'Name': 'name'
-        //},
-		
 		initialize: function(models, options) {
             // If an experiment is passed in, use it to buld the url
             if (options.experiment) {
@@ -37,7 +33,8 @@ define([
         	dataType: 'json',
             data: {
                 sortby: this.sortOn,
-                order: this.sortOrder
+                order: this.sortOrder,
+                reg: this.regulation
             }
         };
 

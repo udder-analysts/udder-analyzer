@@ -24,8 +24,11 @@ define([
 		initialize: function(models, options) {
             this.timerange = {};
 
+            if (options.geneDetail) {
+                this.url = '/experimentsForGene/' + encodeURIComponent(options.gene);
+            }
 		    // If a comparison is passed in, use it to buld the url
-			if (options.species && options.comparison) {
+			else if (options.species && options.comparison) {
 				this.url = '/species/' + encodeURIComponent(options.species) + '/comparisons/' +
 				encodeURIComponent(options.comparison) + '/experiments';
 			}
@@ -45,7 +48,9 @@ define([
             this.dirty = true;
             $.ajax(this.url, _.extend(options, params));
         }
-   });
+   },{
+        type: Experiment.type
+    });
 
    return ExperimentList;
 });

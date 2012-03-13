@@ -2,7 +2,7 @@ from flask import Flask, url_for, render_template, request, redirect
 from werkzeug import secure_filename
 from query import *
 from queryResources import *
-from parserloader import parse
+from app.parser.parserloader import parse
 import json, urllib
 
 ALLOWED_EXTENTIONS = set(['csv'])
@@ -33,7 +33,7 @@ def uploadData():
 
         sorted(fileList, key=lambda file: file.filename)
 		
-        if parse(fileList):
+        if len(parse(fileList)) == 0 :
             return 'Files successfully parsed'
         else:
             return 'Error while parsing files'
@@ -99,7 +99,7 @@ def getGenes():
     else:
         result = queryGenes(None, None, None)
     for entry in result:
-        dictEntry = getGeneDict(entry)
+        dictEntry = getGeneDictWithExpInfo(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
 
@@ -123,7 +123,7 @@ def getFactors():
     else:
         result = queryFactors(None, None)
     for entry in result:
-        dictEntry = getFactorDict(entry)
+        dictEntry = getFactorSummaryDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
 
@@ -189,11 +189,22 @@ def getElemForFacGeneExp(expID, geneID, facID):
     expID = urllib.unquote(expID)
     geneID = urllib.unquote(geneID)
     facID = urllib.unquote(facID)
-    if request.args.getlist('sortby') and request.args.getlist('order'):
-        result = queryElemForFacGeneExp(expID, geneID, facID, request.args.getlist('sortby')[0], request.args.getlist('order')[0])
+    if request.args.getlist('lvalue') and request.args.getlist('lvalFrom') and request.args.getlist('lvalTo'):
+        lvalue = request.args.getlist('lvalue')[0]
+        lvalFrom = request.args.getlist('lvalFrom')[0]
+        lvalTo = request.args.getlist('lvalTo')[0]
     else:
-        result = queryElemForFacGeneExp(expID, geneID, facID, None, None)
-    for entry in result:
+        lvalue = lvalFrom = lvalTo = None
+    if request.args.getlist('locFrom') and request.args.getlist('locTo'):
+        locFrom = request.args.getlist('locFrom')[0]
+        locTo = request.args.getlist('locTo')[0]
+    else:
+        locFrom = locTo = None
+    if request.args.getlist('sense'):
+        sense = request.args.getlist('sense')[0]
+    else:
+        sense = None
+    for entry in queryElemForFacGeneExp(expID, geneID, facID, lvalue, lvalFrom, lvalTo, locFrom, locTo, sense):
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
@@ -216,21 +227,25 @@ def getElemForGeneExp(expID, geneID):
     arr = []
     expID = urllib.unquote(expID)
     geneID = urllib.unquote(geneID)
-    if request.args.getlist('sortby') and request.args.getlist('order'):
-        sortby = request.args.getlist('sortby')[0]
-        order = request.args.getlist('order')[0]
-        result = queryElemForGeneExp(expID, geneID, sortby, order, None, None, None, None, None)
+    if request.args.getlist('lvalue') and request.args.getlist('lvalFrom') and request.args.getlist('lvalTo') and \
+       request.args.getlist('locFrom') and request.args.getlist('locTo'):
+        lvalue = request.args.getlist('lvalue')[0]
+        lvalFrom = request.args.getlist('lvalFrom')[0]
+        lvalTo = request.args.getlist('lvalTo')[0]
+        locFrom = request.args.getlist('locFrom')[0]
+        locTo = request.args.getlist('locTo')[0]
+        result = queryElemForGeneExp(expID, geneID, lvalue, lvalFrom, lvalTo, locFrom, locTo)
     elif request.args.getlist('lvalue') and request.args.getlist('lvalFrom') and request.args.getlist('lvalTo'):
         lvalue = request.args.getlist('lvalue')[0]
         lvalFrom = request.args.getlist('lvalFrom')[0]
         lvalTo = request.args.getlist('lvalTo')[0]
-        result = queryElemForGeneExp(expID, geneID, None, None, lvalue, lvalFrom, lvalTo, None, None)
+        result = queryElemForGeneExp(expID, geneID, lvalue, lvalFrom, lvalTo, None, None)
     elif request.args.getlist('locFrom') and request.args.getlist('locTo'):
         locFrom = request.args.getlist('locFrom')[0]
         locTo = request.args.getlist('locTo')[0]
-        result = queryElemForGeneExp(expID, geneID, None, None, None, None, None, locFrom, locTo)
+        result = queryElemForGeneExp(expID, geneID, None, None, None, locFrom, locTo)
     else:
-        result = queryElemForGeneExp(expID, geneID, None, None, None, None, None, None, None)
+        result = queryElemForGeneExp(expID, geneID, None, None, None, None, None)
     for entry in result:
         dictEntry = getElemDict(entry)
         arr.append(dictEntry)
@@ -255,14 +270,10 @@ def getElemForGene(geneID):
 def getElemForFactor(facID):
     arr = []
     facID = urllib.unquote(facID)
-    if request.args.getlist('sortby') and request.args.getlist('order'):
-        sortby = request.args.getlist('sortby')[0]
-        order = request.args.getlist('order')[0]
-        result = queryElemForFactor(facID, sortby, order)
-    else:
-        result = queryElemForFactor(facID, None, None) 
+    #TODO Add the elem filtering
+    result = queryElemForFactor(facID) 
     for entry in result:
-        dictEntry = getElemDict(entry)
+        dictEntry = getElemForFacDict(entry)
         arr.append(dictEntry)
     return json.dumps(arr)
 
@@ -277,15 +288,75 @@ def getSingleElemForGeneExp(expID, geneID, elemID):
         arr.append(dictEntry)
     return json.dumps(arr)
 
-@app.route('/elementDetails/<elemID>', methods=['GET'])
+@app.route('/elementDetails/<path:elemID>', methods=['GET'])
 def getElementDetails(elemID):
-    arr = []
     elemID = urllib.unquote(elemID)
     entry = queryElementDetails(elemID)[0]
-    print entry
     dictEntry = getElemDetailDict(entry)
-        #arr.append(dictEntry)
     return json.dumps(dictEntry)
+
+@app.route('/geneDetails/<path:geneID>', methods=['GET'])
+def getGeneDetails(geneID):
+    geneID = urllib.unquote(geneID)
+    entry = queryGeneDetails(geneID)[0]
+    print entry
+    dictEntry = getGeneDict(entry)
+    return json.dumps(dictEntry)
+
+@app.route('/experimentsForGene/<path:geneID>', methods=['GET'])
+def getExpForGene(geneID):
+    arr = []
+    geneID = urllib.unquote(geneID)
+    for entry in queryExpForGene(geneID):
+        dictEntry = getExpForGeneDict(entry)
+        arr.append(dictEntry)
+    return json.dumps(dictEntry)
+
+@app.route('/multipleFactors', methods=['GET', 'POST'])
+def getGenesForMultipleFactors():
+    arr = []
+    if request.args.getlist('factors'):
+        facList = request.args.getlist('factors')[0].rsplit(',')
+        if request.args.getlist('la'):
+            la = request.args.getlist('la')[0]
+        else:
+            la = None
+        if request.args.getlist('la_slash'):
+            la_slash = request.args.getlist('la_slash')[0]
+        else:
+            la_slash = None
+        if request.args.getlist('lq'):
+            lq = request.args.getlist('lq')[0]
+        else:
+            lq = None
+        if request.args.getlist('ld'):
+            ld = request.args.getlist('ld')[0]
+        else:
+            ld = None
+        if request.args.getlist('species'):
+            species = request.args.getlist('species')[0]
+        else:
+            species = None
+        if request.args.getlist('comparison'):
+            comparison = request.args.getlist('comparison')[0]
+        else:
+            comparison = None
+        if request.args.getlist('experiment'):
+            experiment = request.args.getlist('experiment')[0]
+        else:
+            experiment = None
+        for entry in queryMultipleFactors(facList, la, la_slash, lq, ld, species, comparison, experiment):
+            dictEntry = getMultipleFactorDict(entry)
+            arr.append(dictEntry)
+        return json.dumps(arr)
+    else:
+       return 'No valid factors provided'
+
+@app.route('/elements/<path:elemID>/factors', methods=['GET', 'POST'])
+def getFactorsForElem(elemID):
+    arr = []
+    elemID = urllib.unquote(elemID)
+    
 
 #====================
 #POST Parameter URLs

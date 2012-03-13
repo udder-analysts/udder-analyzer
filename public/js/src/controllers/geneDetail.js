@@ -29,28 +29,44 @@ define([
             this.trigger('blur', this);
         },
 
+        loadExperiments: function() {
+            var params = { geneDetail: true };
+            console.log(this.options);
+
+            this.trigger('selected', _.extend(this.options, params), this);
+        },
+
         render: function() {
             if (!this.rendered) {
+                var paneContext;
 
-                var paneContext = { 
+                paneContext = { 
                     title: 'Gene Detail',
-                    width: 300
+                    width: 500
                 };
 
                 this.setElement(this.paneTemplate(paneContext));
+
                 this.rendered = true;
+
+                // Experiments list must be deferred, or else it will be put
+                // onto the stack before the detail pane.
+                _.defer(_.bind(this.loadExperiments, this));
             }
 
-            if (this.model.dirty) {
-                this.$('.content').html(
-                    this.detailTemplate(this.model.toJSON()));
-            }
 
-            if (this.active)
+            this.$('.content').html(
+                this.detailTemplate(this.model.toJSON()));
+
+            if (this.active) {
                 this.$('.title').addClass('active');
-            else
+            }
+            else {
                 this.$('.title').removeClass('active');
-            
+            }
+          
+            this.delegateEvents();
+            return this;
         }
     });
 

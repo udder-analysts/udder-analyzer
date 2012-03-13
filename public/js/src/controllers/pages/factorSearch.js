@@ -5,8 +5,8 @@ define([
     'src/controllers/pages/page',
     'src/controllers/superList',
     'src/controllers/elementDetail',
-    'src/collections/factors',
-    'src/collections/elements',
+    'src/collections/extendedFactors',
+    'src/collections/extendedElements',
     'src/models/elementDetail'
 ], function($, _, Backbone, PageView, SuperList, ElementDetailView, Factors, Elements, ElementDetail) {
     var FactorSearch;
@@ -18,11 +18,13 @@ define([
         getNextPane: function(params) {
             var pane, data;
             params = _.clone(params) || {};
-            
+           
+            console.log(params);
+
             if (params.element) {
                 pane = createDetail(params);
             }
-            if (params.factor) {
+            else if (params.factor) {
                 pane = createList(params, Elements);
             }
             else {
@@ -39,15 +41,91 @@ define([
                 return pane;
             }
 
-            function createList(params, collectionType) {
+            function createList(params, Collection) {
                 var pane, collection;
-                collection = new collectionType([], params);
-                pane = new SuperList(_.extend(params, { model: collection }));
+
+                console.log(Collection.type);
+
+                collection = new Collection([], params);
+                pane = new SuperList(_.extend(params, { 
+                    model: collection
+                 }));
                 collection.fetch();
                 return pane;
             }
         }
     });
+
+    displayProperties = {};
+    displayProperties[Factors.type] = [
+        {
+            name: 'Name',
+            property: 'name',
+            type: 'text'
+        },
+        {
+            name: 'Models',
+            property: 'models',
+            type: 'number'
+        },
+        {
+            name: 'Genes',
+            property: 'genes',
+            type: 'number'
+        },
+        {
+            name: 'Occurences',
+            property: 'occurences',
+            type: 'number'
+        }
+    ];
+    displayProperties[Elements.type] = [ 
+        {
+            name: 'Comparison',
+            property: 'comparison',
+            type: 'text'
+        },
+        {
+            name: 'Experimenter',
+            property: 'experimenter',
+            type: 'text'
+        },
+        {
+            name: 'Date',
+            property: 'dateof',
+            type: 'date'
+        },
+        {
+            name: 'Location',
+            property: 'location',
+            type: 'text'
+        },
+        {
+            name: 'Gene',
+            property: 'gene_name',
+            type: 'text'
+        },
+        {
+            name: 'Beginning',
+            property: 'beginning',
+            type: 'number'
+        },
+        {
+            name: 'Length',
+            property: 'length',
+            type: 'number'
+        },
+        {
+            name: 'Sense',
+            property: 'sense',
+            type: 'number'
+        },
+        {
+            name: 'Model',
+            property: 'model',
+            type: 'text'
+        }
+    ];
 
     return FactorSearch;
 });

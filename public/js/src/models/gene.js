@@ -14,17 +14,7 @@ define([
     * beginsite <int> the beginning of the sequence
     * endsite <int> the end of the sequence
     */
-   Gene = Backbone.Model.extend({
-      defaults: {
-         selected: false
-      },
-
-      toggleSelect: function() {
-         this.set({ select: !this.get('select') });
-      }
-       },
-    // Class Properties
-    {
+   Gene = Backbone.Model.extend({}, {
         type: 'gene',
         displayProperties: [
             {

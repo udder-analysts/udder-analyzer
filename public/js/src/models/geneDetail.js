@@ -23,9 +23,12 @@ define([
             begin: 'unknown',
             end: 'unknown',
             sequence: 'unknown',
-            selected: false
         },
         dirty: false,
+
+        url: function() {
+            return '/geneDetails/' + this.id;
+        },
 
         sync: function(method, model, options) {
             var params;
@@ -35,7 +38,7 @@ define([
             };
 
             this.dirty = true;
-            $.ajax(this.url, _.extend(options, params));
+            $.ajax(this.url(), _.extend(options, params));
         }
     },
     // Class Properties

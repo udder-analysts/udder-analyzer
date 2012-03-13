@@ -49,6 +49,9 @@ define([
 
         addPane: function(params) {
             var pane = this.getNextPane(params);
+            
+            if (!pane) return;
+
             pane.bind('selected', this.modifyStack, this);
             pane.bind('selected:column', this.activatePane, this);
             pane.bind('focus', this.activatePane, this);
@@ -74,6 +77,8 @@ define([
             pane.$el.focus();
 
             this.bar.activePane = this.activePane = pane;
+            this.bar.model = this.activePane.model;
+            this.bar.render();
         },
 
         // Determine next pane type based on parameters.

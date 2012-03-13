@@ -1,0 +1,28 @@
+<form class='form-inline form-horizontal'>
+    <div style='float:right;'>
+
+    <label>Sense</label>
+    <select class='range-select input-small sense'>
+        <option value=''>any</option>
+        <option value='1'>1</option>
+        <option value='0'>0</option>
+    </select>
+    &nbsp;
+    <label>Location</label>
+    <input type='numeric' class='input-small begin-min' placeholder='from'/>
+    <input type='numeric' class='input-small begin-max' placeholder='to'/>
+
+    &nbsp;
+    <label>L values</label>
+    <select class='range-select input-small lval'>
+        <option value='la'>La</option>
+        <option value='la_slash'>La/</option>
+        <option value='lq'>Lq</option>
+        <option value='lpv'>Lpv</option>
+    </select>
+
+    <input type='numeric' class='input-small lval-min' placeholder='min'/>
+    <input type='numeric' class='input-small lval-max' placeholder='max'/>
+    <button type='submit' class='btn'>filter</button>
+    </div>
+</form>
